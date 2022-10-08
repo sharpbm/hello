@@ -13,6 +13,9 @@ jobs:
       - run:
           name: lint
           command: make lint
+      - run:
+          name: test
+          command: make test
 
 workflows:
   build-and-lint:
