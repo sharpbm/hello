@@ -64,16 +64,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install make
-          command: |
-            wget https://github.com/Kitware/CMake/releases/download/v3.24.2/cmake-3.24.2-linux-x86_64.tar.gz --no-check-certificate
-            tar xf cmake-3.24.2.tar.gz
-            cd cmake-3.24.2
-            ./configure
-      - run:
           name: build-image
-          command: make build_image
-  
+          command: |
+          	docker build --tag docker-python .
+          	docker images
 workflows:
   build-and-lint:
     jobs:
