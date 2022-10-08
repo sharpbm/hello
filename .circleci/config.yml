@@ -37,7 +37,8 @@ jobs:
           name: install
           command: |
             make install
-            ls venv
+            cd venv
+            ls 
       - save_cache:
           key: python-requirements-V1-{{ checksum "requirements.txt" }}
           paths:
@@ -64,7 +65,7 @@ jobs:
       - checkout
       - run:
           name: install make
-          command: yum install -y cmake
+          command: sudo apt-get install cmake
       - run:
           name: build-image
           command: make build_image
