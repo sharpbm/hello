@@ -1,0 +1,22 @@
+version: 2.1
+
+
+workflows:
+	jobs:
+	  - build-and-test
+
+
+jobs:
+  build-and-test:
+	docker:
+	  - image: cimg/python:3.10.5
+	steps:
+	  - checkout
+	  
+	  - run:
+		  name: Run install
+		  command: make install
+	  - run:
+		  name: Run lint
+		  # This assumes pytest is installed via the install-package step above
+		  command: make lint
