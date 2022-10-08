@@ -65,7 +65,7 @@ jobs:
       - checkout
       - run:
           name: install make
-          command: sudo apt-get install cmake
+          command: apt-get install cmake
       - run:
           name: build-image
           command: make build_image
