@@ -37,7 +37,7 @@ jobs:
           name: install
           command: |
             make install
-            ls
+            ls venv
       - save_cache:
           key: python-requirements-V1-{{ checksum "requirements.txt" }}
           paths:
@@ -62,6 +62,9 @@ jobs:
       - image: docker:17.05.0-ce-git
     steps:
       - checkout
+      - run:
+          name: install make
+          command: yum install -y cmake
       - run:
           name: build-image
           command: make build_image
