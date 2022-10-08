@@ -16,7 +16,7 @@ jobs:
             make install
             wget https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-Linux-x86_64
             chmod +x hadolint-Linux-x86_64
-            hadolint Dockerfile
+            ./hadolint-Linux-x86_64 Dockerfile
       - run:
           name: lint
           command: make lint
