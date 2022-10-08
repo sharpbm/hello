@@ -1,6 +1,28 @@
 version: 2.1
 
 jobs:
+
+  test_and_lint:
+    docker:
+      - image: cimg/python:3.10.5
+    steps:
+      - checkout
+      - run:
+          name: create venv
+          command: make setup
+      - run:
+          name: install
+          command: |
+            make install
+            ls
+      - run:
+          name: lint
+          command: make lint
+      - run:
+          name: test
+          command: make test
+
+
   install-dependencies:
     docker:
       - image: cimg/python:3.10.5
@@ -13,7 +35,9 @@ jobs:
           command: make setup
       - run:
           name: install
-          command: make install
+          command: |
+            make install
+            ls
       - save_cache:
           key: python-requirements-V1-{{ checksum "requirements.txt" }}
           paths:
@@ -45,10 +69,7 @@ jobs:
 workflows:
   build-and-lint:
     jobs:
-      - install-dependencies
-      - lint-and-test:
-          requires:
-            - install-dependencies
+      - test_and_lint
       - build-image:
           requires:
-            - lint-and-test
+            - test_and_lint
