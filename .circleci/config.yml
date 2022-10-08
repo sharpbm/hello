@@ -14,7 +14,9 @@ jobs:
           name: install
           command: |
             make install
-            ls
+            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-Linux-x86_64
+            chmod +x /bin/hadolint
+            hadolint Dockerfile
       - run:
           name: lint
           command: make lint
@@ -71,13 +73,13 @@ jobs:
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
           docker build --tag dockey-python:$TAG .
-          # echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-          # docker push CircleCI-Public/circleci-demo-docker:$TAG
-        
+          docker images
+          
+
 workflows:
   build-and-lint:
     jobs:
-      # - test_and_lint
+      - test_and_lint
       - build-image
-          # requires:
-          #   - test_and_lint
+          requires:
+            - test_and_lint
