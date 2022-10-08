@@ -66,8 +66,8 @@ jobs:
       - run:
           name: build-image
           command: |
-          	docker build --tag docker-python .
-          	docker images
+           docker build --tag docker-python .
+           docker images
 workflows:
   build-and-lint:
     jobs:
