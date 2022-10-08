@@ -5,4 +5,4 @@ lint:
 	pylint --disable=R,C,W1203 web.py
 
 test:
-	python -m pytest -vv --cov=myrepolib tests/*.py
+	ls && python -m pytest -vv --cov=myrepolib tests/*.py
