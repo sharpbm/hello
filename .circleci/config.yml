@@ -80,6 +80,6 @@ workflows:
   build-and-lint:
     jobs:
       - test_and_lint
-      - build-image
+      - build-image:
           requires:
             - test_and_lint
