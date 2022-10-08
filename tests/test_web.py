@@ -5,7 +5,7 @@ import json
 import sys
 
 import pytest
-sys.path.append("../flask_app")
+sys.path.append("flask_app")
 
 #flask app
 from web import app
