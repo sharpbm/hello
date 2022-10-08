@@ -66,7 +66,7 @@ jobs:
       - run:
           name: install make
           command: |
-            wget http://www.cmake.org/files/v3.2/cmake-3.2.2.tar.gz
+            wget https://github.com/Kitware/CMake/releases/download/v3.24.2/cmake-3.24.2-linux-x86_64.tar.gz
             tar xf cmake-3.2.2.tar.gz
             cd cmake-3.2.2
             ./configure
@@ -77,7 +77,7 @@ jobs:
 workflows:
   build-and-lint:
     jobs:
-      - test_and_lint
-      - build-image:
-          requires:
-            - test_and_lint
+      # - test_and_lint
+      - build-image
+          # requires:
+          #   - test_and_lint
