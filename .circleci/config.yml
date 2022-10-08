@@ -1,15 +1,30 @@
 version: 2.1
 
-
 jobs:
-  build-and-lint:
+  install-dependencies:
     docker:
       - image: cimg/python:3.10.5
     steps:
       - checkout
+      - restore_cache:
+          key: python-requirements-V1-{{ checksum "requirements.txt" }}
       - run:
           name: install
           command: make install
+      - save_cache:
+          key: python-requirements-V1-{{ checksum "requirements.txt" }}
+          paths:
+            - "~/.cache/pip"
+            - "/usr/local/lib/python3.10/site-packages"
+            - "/usr/local/lib/site-python"          
+
+  lint-and-test:
+    docker:
+      - image: cimg/python:3.10.5
+    steps:
+      - checkout
+      - restore_cache:
+          key: python-requirements-V1-{{ checksum "requirements.txt" }}
       - run:
           name: lint
           command: make lint
@@ -17,7 +32,22 @@ jobs:
           name: test
           command: make test
 
+  build-image:
+    docker:
+      - image: docker:17.05.0-ce-git
+    steps:
+      - checkout
+      - run:
+          name: build-image
+          command: make build_image
+  
 workflows:
   build-and-lint:
     jobs:
-      - build-and-lint
+      - install-dependencies
+      - lint-and-test:
+          requires:
+            - install-dependencies
+      - build-image
+          requires:
+            - lint-and-test
