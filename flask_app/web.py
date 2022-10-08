@@ -12,6 +12,7 @@ from flask import redirect
 from flask import jsonify
 
 from sensible.loginit import logger
+sys.path.append("..")
 from nlib import csvops
 from nlib import utils
 
