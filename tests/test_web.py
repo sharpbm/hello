@@ -22,7 +22,7 @@ def aggregrate_client():
     """Flask application fixture that includes b64data"""
 
     app.testing = True
-    with open("../ext/input.csv", "rb") as f:
+    with open("ext/input.csv", "rb") as f:
         data = base64.b64encode(f.read()) 
     return app.test_client(), data
 

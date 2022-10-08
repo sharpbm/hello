@@ -7,7 +7,7 @@ from nlib import csvops
 
 def test_list_csv_column_names():
     expected = ['first_name', 'last_name', 'count']
-    actual = csvops.list_csv_column_names("../ext/input.csv")
+    actual = csvops.list_csv_column_names("ext/input.csv")
     assert expected == actual
 
 def test_group_by_operations():
