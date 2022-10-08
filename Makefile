@@ -3,7 +3,7 @@ setup:
 	. venv/bin/activate
 	
 install:
-	source ~./hello/bin/activate
+	. venv/bin/activate
 	pip install --upgrade pip && pip install -r requirements.txt
 	
 lint:
