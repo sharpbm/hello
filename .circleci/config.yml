@@ -9,12 +9,15 @@ jobs:
       - restore_cache:
           key: python-requirements-V1-{{ checksum "requirements.txt" }}
       - run:
+          name: create venv
+          command: make setup
+      - run:
           name: install
           command: make install
       - save_cache:
           key: python-requirements-V1-{{ checksum "requirements.txt" }}
           paths:
-            - "/home/circleci/.pyenv/versions/3.10.5/lib/python3.10/site-packages"
+            - "venv"
 
   lint-and-test:
     docker:
