@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  aws-ecr: circleci/aws-ecr@0.0.4
+  
 jobs:
 
   test_and_lint:
