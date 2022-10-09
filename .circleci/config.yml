@@ -62,7 +62,7 @@ jobs:
 
   build-image:
     docker:
-      - image: cimg/python:3.10.5
+      - image: cimg/aws:2022.09
     steps:
       - checkout
       - setup_remote_docker:
@@ -70,10 +70,16 @@ jobs:
           docker_layer_caching: true
 
       # build and push Docker image
-      - run: |
-          TAG=0.1.$CIRCLE_BUILD_NUM
-          docker build --tag dockey-python:$TAG .
-          docker images
+      - run: 
+          name: build-and-push
+          command: |
+            TAG=0.1.$CIRCLE_BUILD_NUM
+            docker build --tag dockey-python:$TAG .
+            docker images
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 251367170217.dkr.ecr.us-east-1.amazonaws.com
+            docker tag dockey-python:$TAG 251367170217.dkr.ecr.us-east-1.amazonaws.com/udacity:$TAG
+            docker push 251367170217.dkr.ecr.us-east-1.amazonaws.com/udacity:$TAG
+            
           
 
 workflows:
